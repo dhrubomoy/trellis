@@ -1,0 +1,19 @@
+{
+  "name": "@trellis/cli",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "trellis": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@trellis/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}
