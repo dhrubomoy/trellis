@@ -1,2 +1,4 @@
 export * from './link-table.js'
 export * from './inject.js'
+export * from './context.js'
+export * from './node.js'
