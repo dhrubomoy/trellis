@@ -6,8 +6,9 @@ export interface TrellisDiagnostic {
   readonly node: SyntaxNode
   readonly message: string
   readonly severity: DiagnosticSeverity
+  readonly source?: string
 }
 
 export interface DiagnosticProvider {
-  getDiagnostics(rootNode: SyntaxNode): TrellisDiagnostic[]
+  getDiagnostics(rootNode: SyntaxNode): readonly TrellisDiagnostic[]
 }
