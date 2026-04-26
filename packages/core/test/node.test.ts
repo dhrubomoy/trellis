@@ -48,20 +48,16 @@ describe('TrellisNode', () => {
     expect(node.text).toBe('myName')
   })
 
-  it('exposes startPosition from tsNode', () => {
-    const node = new ConcreteNode(
-      mockNode({ startPosition: { row: 2, column: 5 } }),
-      makeContext()
-    )
-    expect(node.startPosition).toEqual({ row: 2, column: 5 })
+  it('exposes startPosition by reference from tsNode', () => {
+    const startPosition: Point = { row: 2, column: 5 }
+    const node = new ConcreteNode(mockNode({ startPosition }), makeContext())
+    expect(node.startPosition).toBe(startPosition)
   })
 
-  it('exposes endPosition from tsNode', () => {
-    const node = new ConcreteNode(
-      mockNode({ endPosition: { row: 2, column: 10 } }),
-      makeContext()
-    )
-    expect(node.endPosition).toEqual({ row: 2, column: 10 })
+  it('exposes endPosition by reference from tsNode', () => {
+    const endPosition: Point = { row: 2, column: 10 }
+    const node = new ConcreteNode(mockNode({ endPosition }), makeContext())
+    expect(node.endPosition).toBe(endPosition)
   })
 
   it('exposes startIndex and endIndex from tsNode', () => {
