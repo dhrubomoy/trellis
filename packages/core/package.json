@@ -1,0 +1,26 @@
+{
+  "name": "@trellis/core",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "devDependencies": {
+    "tree-sitter": "^0.21.0",
+    "typescript": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}
