@@ -20,7 +20,7 @@ function createProxy<I extends object, T extends object>(
   return new Proxy({} as T, {
     has(_target, prop) {
       if (typeof prop === 'symbol') return false
-      return prop in (module as Record<string, unknown>)
+      return Object.prototype.hasOwnProperty.call(module, prop)
     },
     set(_target, prop: string | symbol) {
       throw new Error(`Services container is immutable — cannot set "${String(prop)}"`)
@@ -29,6 +29,7 @@ function createProxy<I extends object, T extends object>(
       if (typeof prop === 'symbol') return undefined
       if (cache.has(prop)) return cache.get(prop)
 
+      if (!Object.prototype.hasOwnProperty.call(module, prop)) return undefined
       const entry = (module as Record<string, unknown>)[prop]
       if (entry === undefined) return undefined
 

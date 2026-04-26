@@ -92,4 +92,10 @@ describe('inject', () => {
     expect(() => services.x).toThrow('factory error')
     expect(calls).toBe(2)
   })
+
+  it('throws when attempting to assign to a service key', () => {
+    interface S { value: string }
+    const services = inject<S>({ value: () => 'hello' })
+    expect(() => { (services as unknown as Record<string, unknown>)['value'] = 'other' }).toThrow(/immutable/)
+  })
 })
