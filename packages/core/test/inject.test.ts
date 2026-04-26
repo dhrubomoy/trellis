@@ -78,4 +78,18 @@ describe('inject', () => {
     })
     expect(() => services.a).toThrow(/[Cc]ircular/)
   })
+
+  it('clears inProgress after factory throws — service is retryable', () => {
+    let calls = 0
+    interface S { x: string }
+    const services = inject<S>({
+      x: () => {
+        calls++
+        throw new Error('factory error')
+      }
+    })
+    expect(() => services.x).toThrow('factory error')
+    expect(() => services.x).toThrow('factory error')
+    expect(calls).toBe(2)
+  })
 })
