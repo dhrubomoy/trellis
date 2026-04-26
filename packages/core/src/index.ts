@@ -1,1 +1,1 @@
-// exports added as source files are implemented
+export * from './link-table.js'
