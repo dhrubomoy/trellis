@@ -1,7 +1,5 @@
 export type Module<I, T> = {
-  [K in keyof T]: T[K] extends object
-    ? Module<I, T[K]>
-    : (injector: I) => T[K]
+  [K in keyof T]: Module<I, T[K]> | ((injector: I) => T[K])
 }
 
 export function inject<T extends object>(...modules: Array<Partial<Module<T, T>>>): T {
@@ -20,6 +18,13 @@ function createProxy<I extends object, T extends object>(
   const inProgress = new Set<string>()
 
   return new Proxy({} as T, {
+    has(_target, prop) {
+      if (typeof prop === 'symbol') return false
+      return prop in (module as Record<string, unknown>)
+    },
+    set(_target, prop: string | symbol) {
+      throw new Error(`Services container is immutable — cannot set "${String(prop)}"`)
+    },
     get(_target, prop: string | symbol) {
       if (typeof prop === 'symbol') return undefined
       if (cache.has(prop)) return cache.get(prop)
@@ -32,9 +37,13 @@ function createProxy<I extends object, T extends object>(
           throw new Error(`Circular dependency detected for service: "${prop}"`)
         }
         inProgress.add(prop)
-        const value = (entry as (i: I) => unknown)(getRoot())
-        inProgress.delete(prop)
-        cache.set(prop, value)
+        let value: unknown
+        try {
+          value = (entry as (i: I) => unknown)(getRoot())
+        } finally {
+          inProgress.delete(prop)
+        }
+        cache.set(prop, value!)
         return value
       }
 
