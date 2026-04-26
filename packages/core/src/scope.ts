@@ -30,5 +30,6 @@ export class DefaultScope implements Scope {
 }
 
 function scopeKey(name: string, type: string): string {
-  return `${type}::${name}`
+  // '\0' cannot appear in source identifiers or tree-sitter type strings, making the key collision-free
+  return `${type}\0${name}`
 }

@@ -55,4 +55,12 @@ describe('DefaultScope', () => {
 
     expect(child.lookup('Foo', 'Element')).toBe(childNode)
   })
+
+  it('define is last-write-wins — redefining the same name+type replaces the previous node', () => {
+    const scope = new DefaultScope()
+    scope.define('Foo', 'Element', mockNode(1))
+    const second = mockNode(2)
+    scope.define('Foo', 'Element', second)
+    expect(scope.lookup('Foo', 'Element')).toBe(second)
+  })
 })
