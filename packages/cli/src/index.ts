@@ -1,1 +1,2 @@
-// @trellis/cli — grammar parser and code generator (implemented in future plans)
+export * from './grammar-ast.js'
+export * from './parser.js'

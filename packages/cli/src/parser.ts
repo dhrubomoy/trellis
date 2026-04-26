@@ -75,7 +75,13 @@ class Parser {
       }
     }
 
-    return { name, word, conflicts, rules, terminals }
+    return {
+      name,
+      ...(word !== undefined ? { word } : {}),
+      ...(conflicts !== undefined ? { conflicts } : {}),
+      rules,
+      terminals,
+    }
   }
 
   private parseWordDecl(): string {
