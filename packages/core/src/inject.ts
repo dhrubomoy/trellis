@@ -4,9 +4,8 @@ export type Module<I, T> = {
 
 export function inject<T extends object>(...modules: Array<Partial<Module<T, T>>>): T {
   const merged = modules.reduce((a, b) => mergeModules(a, b), {} as Partial<Module<T, T>>) as Module<T, T>
-  // proxy is assigned before any factory can be called (factories are invoked lazily on first access)
-  let proxy!: T
-  proxy = createProxy(merged, () => proxy) as T
+  // proxy is declared before assignment so the lazy getter closure captures the binding
+  const proxy: T = createProxy(merged, () => proxy) as T
   return proxy
 }
 
