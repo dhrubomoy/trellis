@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "type": "module",
   "bin": {
-    "trellis": "./dist/index.js"
+    "trellis": "./dist/cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run"
   },
   "dependencies": {
-    "@trellis/core": "workspace:*"
+    "@trellis/core": "workspace:*",
+    "commander": "^12.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
