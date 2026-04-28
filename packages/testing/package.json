@@ -12,12 +12,16 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run"
   },
   "dependencies": {
     "@trellis/core": "workspace:*"
   },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
   "devDependencies": {
+    "tree-sitter": "^0.21.0",
     "typescript": "^5.4.0",
     "vitest": "^2.0.0"
   }
