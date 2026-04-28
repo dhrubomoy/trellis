@@ -19,3 +19,8 @@
 - performance and memory issues with chevrotain. 
 - Incremental parsing in tree-sitter.
 
+Goals:
+Test in both vscode extension and client
+- Create extension package - for vscode extension
+- client package using monaco-languageclient 
+- need to write e2e test using playwright 
